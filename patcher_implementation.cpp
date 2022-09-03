@@ -307,22 +307,6 @@ LoHook::LoHook(_ptr_ address, void* func) {
 	
 	const _ptr_ bridge = CodePreAlloc(bridge_max_size); // Pre allocate memory. Get pointer of next CodeAlloc. Here, we don't know exactly the bridge size yet.
 
-	//////ByteAt(   bridge + 0) = 0x60;						// +0: pushad -> LoContext registers
-	//////													// +1: push address_ + size_ -> LoContext::return_address
-	//////ByteAt(   bridge + 1) = 0x68;						
-	//////DwordAt(  bridge + 2) = address_ + size_;			
-	//////ByteAt(   bridge + 6) = 0x54;						// +6: push esp
-	//////SetCallAt(bridge + 7,	func);						// +7: call func
-	//////
-	//////													// +12: test eax, eax
-	//////													// +14: pop eax
-	//////													// +15: popad
-	//////DwordAt(  bridge + 12) = InvertDword(0x85C05861); 
-	//////WordAt(   bridge + 16) = InvertWord(0x7505);		// +16: jne copied_default_code
-	//////DwordAt(  bridge + 18) = InvertDword(0xFF7424DC);	// +18: push dword ptr [esp - 36]  // modified return address
-	//////ByteAt(	  bridge + 22) = 0xC3;						// +22: ret
-	//////													// +23: copied_default_code:
-	//////const _ptr_ copied_default_code = (_ptr_)bridge + 23;
 	ByteAt(bridge + 0) = 0x60;						// +0: pusha -> LoContext registers
 	ByteAt(bridge + 1) = 0x9C;						// +0: pushf -> LoContext flags
 													// +1: push address_ + size_ -> LoContext::return_address
