@@ -1,2 +1,33 @@
 # winpatcher_x86
-a library of tools for placing patches and hooks into target x86 program code
+A library of tools for placing patches and hooks into target x86 program code.
+
+
+
+It is used in the MMDoC Revival project: https://sites.google.com/site/mmdoc4ever
+
+Some code example from it:
+
+```c++
+//Fix banish invisible card original bug
+
+_P->SetLoHook(addr(0x5B1450), [](LoHookContext* c) -> int
+  {
+    if (c->eax && c->ecx)
+      return EXEC_DEFAULT;
+    c->return_address = addr(0x5B1457);
+    return SKIP_DEFAULT;
+  });
+  
+HIHOOK(addr(0x54AA10), SPLICE_, EXTENDED_,
+  int, __thiscall, sub_54AA10, (_ptr_ this_, int a2),
+  {
+    if (!this_)
+    {
+      //ConsoleOut("\n %X: sub_54AA10", RetAddr());
+      return 1;
+    }
+    return DefaultFunc(this_, a2);
+  }
+);
+```
+
