@@ -351,7 +351,7 @@ public:
 	// LoHookContext* c allows to read/modify CPU register values and return address
 	// if func returns SKIP_DEFAULT then the replaced code is not executed and execution goes to LoHookContext::return_address
 	// if func returns EXEC_DEFAULT the original code replaced by hook is executed after finishing func call 
-	// and and execution goes to the address following the replaced code (changed LoHookContext::return_address value is ignored)
+	// and execution goes to the address following the replaced code (changed LoHookContext::return_address value is ignored)
 	// ATTENTION!  We assume LoHookContext::esp is read only (If you modify it, you will most likely get a crash)
 	virtual ILoHook* PATCHER_CALL SetLoHook(_ptr_ address, LoHookFunc func) = 0;
 
@@ -379,7 +379,7 @@ public:
 	//     register arguments are passed as the second stack arguments
 	// So, new_func function must take the form
 	// __stdcall new_func(_ptr_ return_address, ?) for __stdcall orig(?),  __thiscall orig(?) and  __fastcall orig(?), 
-	// __cdecl orig(_ptr_ return_address, ?) for __cdecl orig(?),
+	// __cdecl new_func(_ptr_ return_address, ?) for __cdecl orig(?),
 	//
 	// ATTENTION! EXTENDED_ FASTCALL_ supports only the functions with 2 or more arguments
 	// for __fastcall with 1 argument use EXTENDED_ FASTCALL_1 / EXTENDED_ THISCALL_
