@@ -1,7 +1,7 @@
 # winpatcher_x86
 A library of tools for placing patches and hooks into target x86 program code.
 
-
+You should call exported GetPatcherX86 function from your code to get IPatcher instance. The IPatcher interface provides most of the functionlity of the winpatcher_x86 library.
 
 It is used in the MMDoC Revival project: https://sites.google.com/site/mmdoc4ever
 
